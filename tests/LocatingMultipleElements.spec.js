@@ -1,9 +1,9 @@
 const { test, expect } = require('@playwright/test');
 
-test('Locating multiple anchor elements on LDB', async ({ page }) => {
+test('Locating multiple anchor elements on IRCTC', async ({ page }) => {
 
-  // Navigate to LDB Container Search page
-  await page.goto('https://www.ldb.co.in/ldb/containersearch');
+  // Navigate to IRCTC main page
+  await page.goto('https://www.irctc.co.in/nget/train-search');
 
   // Wait for all network activity to finish
   await page.waitForLoadState('networkidle');
@@ -19,4 +19,4 @@ test('Locating multiple anchor elements on LDB', async ({ page }) => {
     }
   }
 
-});
+});    

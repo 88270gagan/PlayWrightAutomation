@@ -1,27 +1,32 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test('LDB Container Search Page', async ({ page }) => {
-  // Navigate to LDB's container search page
-  await page.goto('https://www.ldb.co.in/ldb/containersearch');
+test('Blinkit Home Page', async ({ page }) => {
+  // Navigate to Blinkit home page
+  await page.goto('https://blinkit.com/', {
+    waitUntil: 'domcontentloaded',
+  });
 
-  // Wait for network to be idle
+  // Wait until the network is idle
   await page.waitForLoadState('networkidle');
 
   // Check page title
   const title = await page.title();
   console.log('Page Title:', title);
-  await expect(page).toHaveTitle(/Container Search/i);
+  await expect(page).toHaveTitle(/Blinkit/i);
 
   // Check URL
   const url = page.url();
   console.log('Page URL:', url);
-  await expect(page).toHaveURL(/https:\/\/www\.ldb\.co\.in\/ldb\/containersearch/);
+  await expect(page).toHaveURL(/blinkit\.com/);
 
-  // Check "Container Search" heading is visible (or use another visible element)
-  const heading = page.locator('h1, h2, h3').filter({ hasText: 'Container Search' });
-  await expect(heading.first()).toBeVisible();
+  // Check that the main heading is visible (Blinkit uses a dynamic homepage)
+  const heading = page.locator('h1, h2').first(); // First main heading
+  await expect(heading).toBeVisible();
 
-  // Optional: wait for observation
+  // Print heading text
+  console.log('Main Heading:', await heading.innerText());
+
+  // Optional: wait for visual observation
   await page.waitForTimeout(2000);
 });
